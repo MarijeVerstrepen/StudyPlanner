@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:StudyPlanner.ViewModels"
+             xmlns:models="clr-namespace:StudyPlanner.Models"
              x:Class="StudyPlanner.MainPage"
              x:DataType="vm:MainViewModel"
              Title="My courses">
@@ -16,10 +17,16 @@
 
         <CollectionView ItemsSource="{Binding Courses}">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="x:String">
-                    <Label Text="{Binding .}"
-                           FontSize="18"
-                           Padding="0,8" />
+                <DataTemplate x:DataType="models:Course">
+                    <Grid ColumnDefinitions="*,Auto" Padding="0,6">
+                        <Label Text="{Binding Name}"
+                       FontSize="18"
+                       VerticalOptions="Center" />
+                        <Button Grid.Column="1"
+                        Text="Delete"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=DeleteCourseCommand}"
+                        CommandParameter="{Binding .}" />
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

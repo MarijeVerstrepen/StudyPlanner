@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using StudyPlanner.Services;
 using StudyPlanner.ViewModels;
 
 namespace StudyPlanner
@@ -18,9 +19,10 @@ namespace StudyPlanner
 
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<ICourseService, CourseService>();
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
